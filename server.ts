@@ -7,7 +7,7 @@ const app = express()
 const port = 3000
 
 
-// app.use(express.json())
+app.use(express.json())
 app.use(cors())
 
 app.get("/", (req, res ) => {
@@ -15,7 +15,6 @@ app.get("/", (req, res ) => {
 });
 
 app.get("/generator-pdf", (req, res) => {
-  console.log('test')
   const doc = new PDFDocument();
   doc.pipe(fs.createWriteStream('./pdfFiles/example.pdf'))
   doc.pipe(res)
@@ -25,8 +24,15 @@ app.get("/generator-pdf", (req, res) => {
   doc.end();
 })
 
-app.get("/generator-form", (req, res ) => {
-  res.send(' Generator form')
+app.post("/generator-form", (req, res ) => {
+  const userInfo = req.body
+  console.log(userInfo.name)
+  const doc = new PDFDocument();
+  doc.pipe(fs.createWriteStream('./pdfFiles/aaa.pdf'))
+  doc.pipe(res)
+  doc.text(`Hello ${userInfo.name}`, 100, 100)
+
+  doc.end();
 });
 
 
