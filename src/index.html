@@ -9,12 +9,68 @@
 
 </head>
 <body>
-    <form>
-        <input type="text" id="userInput" value="aovz">
-        <input type="text" id="name" value="Faustine">
+    <div class="container">
+        <form>
+            <div class="form-container">
 
-        <button type="button"  onclick="submitFunction()">valider</button>
-    </form>
-    <button type="button" onclick="pdgGenerator()">BUTTTTon</button>
+              <label>Title of your file*</label>
+              <input type="text" id="titlePdf" placeholder="Title PDF" autocomplete="off" required >
+
+              <label>Your first name*</label>
+              <input type="text" id="firstName" placeholder="FirstName" autocomplete="off" required >
+
+              <label>Your last name*</label>
+              <input type="text" id="lastName" placeholder="LastName" autocomplete="off" required>
+
+              <label>Type of Pokemon*</label>
+              <div class="radio-btn-form">
+                <div>
+                    <label>Fire</label>
+                    <input type="radio" id="fire" name="type" checked />
+                </div>
+            
+                <div>
+                <label>Plant</label>
+                <input type="radio" id="plant" name="type"  />
+              </div>
+
+              <div>
+                <label>Water</label>
+                <input type="radio" id="water" name="type"  />
+              </div>
+
+              <div>
+                <label>Normal</label>
+                <input type="radio" id="normal" name="type"  />
+              </div>
+              <div>
+                <label>Electric</label>
+                <input type="radio" id="electric" name="type"  />
+              </div>
+              <div>
+                <label>Poison</label>
+                <input type="radio" id="poison" name="type"  />
+              </div>
+              <div>
+                <label>Ice</label>
+                <input type="radio" id="ice" name="type"  />
+              </div>
+              <div>
+                <label>Dragon</label>
+                <input type="radio" id="dragon" name="type"  />
+              </div>
+              <div>
+                <label>Fairy</label>
+                <input type="radio" id="fairy" name="type"  />
+              </div>
+              </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="submit-button" onclick="submitDataPdf()">Submit</button>
+            </div>
+          </form>
+
+    </div>
+    
 </body>
 </html>

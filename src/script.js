@@ -1,42 +1,26 @@
-async function pdgGenerator() {
-const userInput = document.getElementById('userInput').value
-    const response = await fetch(
-        "http://localhost:3000/generator-pdf"
-    )
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `${userInput}.pdf`
+const submitButton = document.getElementById('submit-button');
+submitButton.addEventListener('click', submitDataPdf);
 
-    console.log('a.download', a.download)
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    
-}
-
-
-async function submitFunction(){
+async function submitDataPdf() {
     const userDataForm = {
-        titlePdf: document.getElementById('userInput').value,
-        name: document.getElementById('name').value,
-    }
-    const userInput = document.getElementById('userInput').value
-
-    console.log(userDataForm.titlePdf)
+      titlePdf: document.getElementById('titlePdf').value,
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      typePokemon: document.querySelector('input[name="type"]:checked').id
+    };
+    
     const response = await fetch(
-        "http://localhost:3000/generator-form", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(userDataForm)
-        }
-    )
+      "http://localhost:3000/generator-form", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(userDataForm)
+      }
+    );
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `${userInput}.pdf`
+    a.download = `${userDataForm.titlePdf}.pdf`
     console.log('a.download', a.download)
     document.body.appendChild(a)
     a.click()
