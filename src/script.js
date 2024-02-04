@@ -6,7 +6,8 @@ async function submitDataPdf() {
       titlePdf: document.getElementById('titlePdf').value,
       firstName: document.getElementById('firstName').value,
       lastName: document.getElementById('lastName').value,
-      typePokemon: document.querySelector('input[name="type"]:checked').id
+      typePokemon: document.querySelector('input[name="type"]:checked').id,
+      favouritePokemonGame: document.querySelector('input[name="game"]:checked').id
     };
     
     const response = await fetch(
