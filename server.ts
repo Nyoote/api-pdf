@@ -2,6 +2,7 @@ import express from "express";
 import fs from 'fs';
 import PDFDocument from 'pdfkit';
 import cors from 'cors';
+import db from './db'
 
 const app = express()
 const port = 3000
@@ -14,10 +15,10 @@ app.get("/", (req, res) => {
     res.send('API Generator PDF')
 });
 
-
-app.post("/generator-form", (req, res) => {
+app.post("/generator-form", async (req, res) => {
   const userInfo = req.body
 
+  try {
   type TypePokemonImage = { [key: string]: string };
 
   const typePokemonImage: TypePokemonImage = {
@@ -52,8 +53,6 @@ app.post("/generator-form", (req, res) => {
   } else {
     doc.text(`you've chosen another game besides Black&White or XY, you should think about your taste . Here's what you deserve :`, 100, 515,  {align: 'center'})
     doc.image('src/img/restes.png', 230, 570, { height: 150 });
-
-
   }
 
   doc.fontSize(12).text(`Have fun :)`, 80, 750, {align: 'center'})
@@ -64,8 +63,26 @@ app.post("/generator-form", (req, res) => {
   
 
   doc.end();
+
+  const [result] = await db.execute('INSERT INTO DOCUMENT(TITLE_PDF, FIRSTNAME_USER, LASTNAME_USER, TYPE_POKEMON_USER, GAME_POKEMON_USER) VALUES(?, ?, ?, ?, ?)', [userInfo.titlePdf, userInfo.firstName, userInfo.lastName, userInfo.typePokemon, userInfo.favouritePokemonGame])
+  console.log('ok')
+} 
+catch(error) {
+  console.error(error)
+}
 });
 
+app.get("/history", async (req, res) => {
+  try{
+    const history_data = await db.execute('SELECT * FROM DOCUMENT')
+    console.log('history data ', history_data)
+
+    res.status(200).json(history_data)
+  }
+  catch(error){
+    console.log(error)
+  }
+});
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`)

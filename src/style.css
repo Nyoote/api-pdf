@@ -12,6 +12,9 @@ body {
     font-family: Georgia, serif;
 }
 
+h1{
+    text-align: center;
+}
 .container {
     display: flex;
     justify-content: center;
@@ -58,7 +61,7 @@ body {
     
     button {
         background-color: #c2d8c9;
-        color: white;
+        color: black;
         padding: 10px;
         border: 1px solid #a2b6ab;
         border-radius: 10px;
