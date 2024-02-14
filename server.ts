@@ -73,16 +73,17 @@ catch(error) {
 });
 
 app.get("/history", async (req, res) => {
-  try{
-    const history_data = await db.execute('SELECT * FROM DOCUMENT')
-    console.log('history data ', history_data)
+  try {
+    const history_data = await db.execute('SELECT * FROM DOCUMENT');
+    console.log('history data ', history_data);
 
-    res.status(200).json(history_data)
-  }
-  catch(error){
-    console.log(error)
+    res.status(200).json(history_data[0]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`)
