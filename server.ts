@@ -145,6 +145,16 @@ app.post("/view-pdf", async (req, res) => {
   }
 });
 
+app.post("/delete-pdf", async (req, res) => {
+  try {
+      const pdfId = req.body.ID;
+      db.execute(`DELETE FROM DOCUMENT WHERE ID = ${pdfId}`);
+      res.status(200).json();
+  } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: 'Error' });
+  }
+});
 
 
 app.listen(port, () => {

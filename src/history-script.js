@@ -8,12 +8,18 @@ async function history(ID) {
 
         const headerRow = document.createElement("tr");
 
-        for (const key in historyData[0]) {
+        const headerCellNumber = document.createElement("th");
+        const headerTextID = document.createTextNode("ID");
+        headerCellNumber.appendChild(headerTextID);
+        headerRow.appendChild(headerCellNumber);
 
-            const headerCell = document.createElement("th");
-            const headerText = document.createTextNode(key);
-            headerCell.appendChild(headerText)
-            headerRow.appendChild(headerCell);
+        for (const key in historyData[0]) {
+            if (key !== "ID") {
+                const headerCell = document.createElement("th");
+                const headerText = document.createTextNode(key);
+                headerCell.appendChild(headerText);
+                headerRow.appendChild(headerCell);
+            }
         }
         const headerCellAction = document.createElement("th")
         const headerTextAction = document.createTextNode("Actions")
@@ -22,28 +28,45 @@ async function history(ID) {
 
 
         tableBody.appendChild(headerRow);
-
+        let counter = 1;
 
         historyData.forEach((rowData) => {
             const row = document.createElement("tr");
 
+            const cellNumber = document.createElement("td");
+            const cellTextID = document.createTextNode(counter);
+            cellNumber.appendChild(cellTextID);
+            row.appendChild(cellNumber);
+
             for (const key in rowData) {
-                const cell = document.createElement("td");
-                const cellText = document.createTextNode(rowData[key]);
-                cell.appendChild(cellText);
-                row.appendChild(cell);
-    
+                if (key !== "ID") {
+                    const cell = document.createElement("td");
+                    const cellText = document.createTextNode(rowData[key]);
+                    cell.appendChild(cellText);
+                    row.appendChild(cell);
+                }
             }
             const buttonView = document.createElement("button");
             const buttonViewText = document.createTextNode(("View pdf"));
             buttonView.appendChild(buttonViewText);
             row.appendChild(buttonView);
+
+            const buttonDelete = document.createElement("button");
+            const buttonDeleteText = document.createTextNode(("Delete pdf"));
+            buttonDelete.appendChild(buttonDeleteText);
+            row.appendChild(buttonDelete);
+
             tableBody.appendChild(row);
 
             buttonView.addEventListener('click', () => {
                 viewPdf(rowData.ID);
             });
+
+            buttonDelete.addEventListener('click', () => {
+                deletePdf(rowData.ID);
+            });
             
+            counter++;
         });
 
         tableHistoryData.appendChild(tableBody);
@@ -92,4 +115,18 @@ async function viewPdf (ID) {
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
+}
+
+async function deletePdf (ID) {
+    const requestPdf = await fetch(
+        "http://localhost:3000/delete-pdf", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ ID })
+        }
+    );
+    if (requestPdf.status === 200) {
+        location.reload()
+    }
+
 }
