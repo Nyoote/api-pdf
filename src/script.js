@@ -22,7 +22,6 @@ async function submitDataPdf() {
     const a = document.createElement('a')
     a.href = url
     a.download = `${userDataForm.titlePdf}.pdf`
-    console.log('a.download', a.download)
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)

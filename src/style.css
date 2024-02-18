@@ -12,14 +12,32 @@ body {
     font-family: Georgia, serif;
 }
 
-h1{
+h1 {
     text-align: center;
+    margin-bottom: 20px;
 }
+
+a {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+}
+
+.navigation-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+}
+
+.navigation-link i {
+    margin-right: 5px;
+}
+
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 .form-container {
