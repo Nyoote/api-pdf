@@ -116,12 +116,7 @@ async function viewPdf (ID) {
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `${userDataForm.titlePdf}.pdf`
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
+      window.open(url);
 }
 
 async function deletePdf (ID) {
