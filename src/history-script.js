@@ -6,70 +6,77 @@ async function history(ID) {
         const tableHistoryData = document.getElementById("table-history");
         const tableBody = document.getElementById("tbody-history");
 
-        const headerRow = document.createElement("tr");
+        if (historyData.length > 0) {
+            const headerRow = document.createElement("tr");
 
-        const headerCellNumber = document.createElement("th");
-        const headerTextID = document.createTextNode("ID");
-        headerCellNumber.appendChild(headerTextID);
-        headerRow.appendChild(headerCellNumber);
+            const headerCellNumber = document.createElement("th");
+            const headerTextID = document.createTextNode("ID");
+            headerCellNumber.appendChild(headerTextID);
+            headerRow.appendChild(headerCellNumber);
 
-        for (const key in historyData[0]) {
-            if (key !== "ID") {
-                const headerCell = document.createElement("th");
-                const headerText = document.createTextNode(key);
-                headerCell.appendChild(headerText);
-                headerRow.appendChild(headerCell);
-            }
-        }
-        const headerCellAction = document.createElement("th")
-        const headerTextAction = document.createTextNode("Actions")
-        headerCellAction.appendChild(headerTextAction);
-        headerRow.appendChild(headerCellAction);
-
-
-        tableBody.appendChild(headerRow);
-        let counter = 1;
-
-        historyData.forEach((rowData) => {
-            const row = document.createElement("tr");
-
-            const cellNumber = document.createElement("td");
-            const cellTextID = document.createTextNode(counter);
-            cellNumber.appendChild(cellTextID);
-            row.appendChild(cellNumber);
-
-            for (const key in rowData) {
+            for (const key in historyData[0]) {
                 if (key !== "ID") {
-                    const cell = document.createElement("td");
-                    const cellText = document.createTextNode(rowData[key]);
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
+                    const headerCell = document.createElement("th");
+                    const headerText = document.createTextNode(key);
+                    headerCell.appendChild(headerText);
+                    headerRow.appendChild(headerCell);
                 }
             }
-            const buttonView = document.createElement("button");
-            const buttonViewText = document.createTextNode(("View pdf"));
-            buttonView.appendChild(buttonViewText);
-            row.appendChild(buttonView);
+            const headerCellAction = document.createElement("th")
+            const headerTextAction = document.createTextNode("Actions")
+            headerCellAction.appendChild(headerTextAction);
+            headerRow.appendChild(headerCellAction);
 
-            const buttonDelete = document.createElement("button");
-            const buttonDeleteText = document.createTextNode(("Delete pdf"));
-            buttonDelete.appendChild(buttonDeleteText);
-            row.appendChild(buttonDelete);
 
-            tableBody.appendChild(row);
+            tableBody.appendChild(headerRow);
+            let counter = 1;
 
-            buttonView.addEventListener('click', () => {
-                viewPdf(rowData.ID);
+            historyData.forEach((rowData) => {
+                const row = document.createElement("tr");
+
+                const cellNumber = document.createElement("td");
+                const cellTextID = document.createTextNode(counter);
+                cellNumber.appendChild(cellTextID);
+                row.appendChild(cellNumber);
+
+                for (const key in rowData) {
+                    if (key !== "ID") {
+                        const cell = document.createElement("td");
+                        const cellText = document.createTextNode(rowData[key]);
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                    }
+                }
+                const buttonView = document.createElement("button");
+                const buttonViewText = document.createTextNode(("View pdf"));
+                buttonView.appendChild(buttonViewText);
+                row.appendChild(buttonView);
+
+                const buttonDelete = document.createElement("button");
+                const buttonDeleteText = document.createTextNode(("Delete pdf"));
+                buttonDelete.appendChild(buttonDeleteText);
+                row.appendChild(buttonDelete);
+
+                tableBody.appendChild(row);
+
+                buttonView.addEventListener('click', () => {
+                    viewPdf(rowData.ID);
+                });
+
+                buttonDelete.addEventListener('click', () => {
+                    deletePdf(rowData.ID);
+                });
+                
+                counter++;
             });
 
-            buttonDelete.addEventListener('click', () => {
-                deletePdf(rowData.ID);
-            });
-            
-            counter++;
-        });
-
-        tableHistoryData.appendChild(tableBody);
+            tableHistoryData.appendChild(tableBody);
+        } else {
+            const noDataMessage = document.createElement("p");
+            const messageText = document.createTextNode("No history data available");
+            noDataMessage.appendChild(messageText);
+            tableHistoryData.appendChild(noDataMessage);
+        }
 
         const containerHistory = document.querySelector(".container-history");
         containerHistory.appendChild(tableHistoryData);

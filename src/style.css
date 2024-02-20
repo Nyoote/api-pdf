@@ -8,12 +8,13 @@ html {
 }
 
 body {
-    background: linear-gradient(#c2d8c9, #dbe7e4); 
+    background: #c2d8c9 ;
     font-family: Georgia, serif;
 }
 
 h1 {
     text-align: center;
+    margin-top: 30px;
     margin-bottom: 20px;
 }
 
@@ -21,17 +22,7 @@ a {
     position: absolute;
     top: 40px;
     right: 20px;
-}
-
-.navigation-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
     color: #000;
-}
-
-.navigation-link i {
-    margin-right: 5px;
 }
 
 .container {
