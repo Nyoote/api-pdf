@@ -1,6 +1,3 @@
-const submitButton = document.getElementById('submit-button');
-submitButton.addEventListener('click', submitDataPdf);
-
 async function submitDataPdf() {
     const userDataForm = {
       titlePdf: document.getElementById('titlePdf').value,
